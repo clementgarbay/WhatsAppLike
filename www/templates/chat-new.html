@@ -1,0 +1,33 @@
+<ion-view id="chat-new" view-title="Nouvelle conversation">
+
+  <ion-content class="has-header has-footer">
+
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="text" placeholder="Nom" ng-model="vm.newChat.name">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Description" ng-model="vm.newChat.description">
+      </label>
+
+       <label class="item item-toggle">
+        Privée
+        <label class="toggle toggle-positive">
+          <input type="checkbox" ng-model="vm.newChat.isPrivate">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </label>
+    </div>
+
+    <div class="list list-inset">
+      <ion-list>
+        <ion-checkbox ng-model="_" ng-repeat="contact in vm.contacts">
+          {{contact.firstName}} {{contact.lastName}}
+        </ion-checkbox>
+      </ion-list>
+    </div>
+  </ion-content>
+      
+</ion-view>
