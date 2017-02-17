@@ -1,6 +1,6 @@
 <ion-view id="chat-new" view-title="Nouvelle conversation">
 
-  <ion-content class="has-header has-footer">
+  <ion-content class="has-header has-footer padding">
 
     <div class="list list-inset">
       <label class="item item-input">
@@ -9,8 +9,7 @@
       <label class="item item-input">
         <input type="text" placeholder="Description" ng-model="vm.newChat.description">
       </label>
-
-       <label class="item item-toggle">
+      <label class="item item-toggle">
         Privée
         <label class="toggle toggle-positive">
           <input type="checkbox" ng-model="vm.newChat.isPrivate">
@@ -21,13 +20,17 @@
       </label>
     </div>
 
-    <div class="list list-inset">
+    <div class="list list-inset" ng-show="vm.newChat.isPrivate">
       <ion-list>
-        <ion-checkbox ng-model="_" ng-repeat="contact in vm.contacts">
+        <ion-checkbox ng-model="_" ng-repeat="contact in vm.contacts" ng-change="vm.selectContact(contact.$id)" ng-checked="vm.isSelectedContact(contact.$id)">
           {{contact.firstName}} {{contact.lastName}}
         </ion-checkbox>
       </ion-list>
     </div>
+
+    <button class="button button-block button-stable" ng-click="vm.createNewChat()" ng-disabled="!vm.newChat.name.length || !vm.newChat.description.length">
+      Créer
+    </button>
   </ion-content>
       
 </ion-view>

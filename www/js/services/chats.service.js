@@ -2,7 +2,7 @@
   'use strict'
 
   angular
-    .module('starter.services')
+    .module('whatsapp.services')
     .service('Chats', Chats)
 
   function Chats() {

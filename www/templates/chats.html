@@ -8,13 +8,13 @@
 
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in vm.chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in vm.chats" type="item-text-wrap" href="#/tab/chats/{{chat.$id}}">
         <!--<img ng-src="{{chat.face}}">-->
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastMessage}}</p>
+        <h2>{{chat.name}} <span class="small" ng-show="!chat.private">(Public)</span></h2>
+        <p>{{chat.description}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="vm.remove(chat.id)">
+        <ion-option-button class="button-assertive" ng-click="vm.remove(chat.$id)">
           Supprimer
         </ion-option-button>
       </ion-item>

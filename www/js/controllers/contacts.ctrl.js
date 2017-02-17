@@ -2,16 +2,17 @@
   'use strict'
 
   angular
-    .module('starter.controllers')
+    .module('whatsapp.controllers')
     .controller('ContactsCtrl', ContactsCtrl)
 
-  function ContactsCtrl(Contacts) {
+  function ContactsCtrl(Firebase, Auth) {
     const vm = this
 
     init()
 
     function init() {
-      vm.contacts = Contacts.getAll()
+      vm.user = Auth.getUser()
+      vm.contacts = Firebase.getUsersSynchronized()
     }
 
   }

@@ -1,0 +1,25 @@
+<ion-view id="signup" view-title="Inscription">
+
+  <ion-content class="has-header has-footer padding">
+
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="text" placeholder="Prénom" ng-model="vm.newUser.firstName">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Nom" ng-model="vm.newUser.lastName">
+      </label>
+      <label class="item item-input">
+        <input type="email" placeholder="Email" ng-model="vm.newUser.email">
+      </label>
+      <label class="item item-input">
+        <input type="password" placeholder="Mot de passe" ng-model="vm.newUser.password">
+      </label>
+    </div>
+
+    <button class="button button-block button-stable" ng-click="vm.signup()" ng-disabled="!vm.newUser.firstName.length || !vm.newUser.lastName.length || !vm.newUser.email.length || vm.newUser.password.length < 6">
+      S'inscrire
+    </button>
+  </ion-content>
+      
+</ion-view>

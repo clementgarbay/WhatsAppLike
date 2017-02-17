@@ -2,18 +2,24 @@
   'use strict'
 
   angular
-    .module('starter.controllers')
+    .module('whatsapp.controllers')
     .controller('ChatsCtrl', ChatsCtrl)
 
-  function ChatsCtrl(Chats) {
+  function ChatsCtrl(Firebase, Loader) {
     const vm = this
+    vm.remove = remove
 
-    init();
+    init()
 
     function init() {
-      vm.chats = Chats.getAll()
+      Loader.show()
+      vm.chats = Firebase.getChatsSynchronized()
+      vm.chats.$loaded().then(() => Loader.hide())
     }
 
+    function remove(chatId) {
+      Firebase.removeChat(chatId)
+    }
   }
 
 })()

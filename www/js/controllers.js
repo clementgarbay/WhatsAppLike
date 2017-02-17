@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('whatsapp.controllers', [])
 
 // .controller('ContactsCtrl', function($scope) {})
 

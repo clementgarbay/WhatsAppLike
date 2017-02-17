@@ -1,0 +1,13 @@
+<ion-view view-title="Contacts">
+  <ion-content>
+
+    <ion-list>
+      <ion-item ng-repeat="contact in vm.contacts" type="item-text-wrap" ng-if="vm.user.id !== contact.$id">
+        <a href="#/tab/chats/new?contactId={{contact.$id}}">
+          <h2>{{contact.firstName}} {{contact.lastName}}</h2>
+        </a>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

@@ -2,23 +2,27 @@
 
   <ion-content has-bouncing="true" class="has-header has-footer">
 
+    <div class="no-message text-center" ng-show="vm.messages.$resolved && !vm.messages.length">
+      Aucun message
+    </div>
+
     <div ng-repeat="message in vm.messages" class="message-wrapper">
 
-      <div ng-if="vm.user.id !== message.userId">
+      <div ng-if="vm.user.id !== message.senderId">
         <div class="chat-bubble left">
           <div class="message" ng-bind-html="message.text"></div>
           <div class="message-detail">
-            <span class="bold">{{message.username}}</span>,
+            <span class="bold">{{message.sender}}</span>,
             <span>{{ message.date | date }}</span>
           </div>
         </div>
       </div>
       
-      <div ng-if="vm.user.id === message.userId">
+      <div ng-if="vm.user.id === message.senderId">
         <div class="chat-bubble right">
           <div class="message" ng-bind-html="message.text"></div>
           <div class="message-detail">
-            <span class="bold">{{message.username}}</span>,
+            <span class="bold">Vous</span>,
             <span>{{ message.date | date }}</span>
           </div>
         </div>
@@ -29,15 +33,14 @@
     </div>
   </ion-content>
       
-  <form name="sendMessageForm" ng-submit="vm.sendMessage(sendMessageForm)" novalidate>
+  <form ng-submit="vm.sendMessage()" novalidate>
 
     <ion-footer-bar class="bar-stable item-input-inset message-footer" keyboard-attach>
       <label class="item-input-wrapper">
-        <textarea ng-model="input.message" value="" placeholder="Send a new message..." required minlength="1" maxlength="1500" msd-elastic></textarea>
+        <input type="text" ng-model="vm.newMessage.text" value="" placeholder="Send a new message..." required minlength="1" maxlength="1500" msd-elastic></input>
       </label>
       <div class="footer-btn-wrap">
-        <button class="button button-icon icon ion-ios-paperplane-outline footer-btn" type="submit" ng-disabled="!input.message || input.message === ''">
-        </button>
+        <button class="button button-icon icon ion-ios-paperplane-outline footer-btn" type="submit" ng-disabled="!vm.newMessage.text || vm.newMessage.text === ''"></button>
       </div>
     </ion-footer-bar>
 
