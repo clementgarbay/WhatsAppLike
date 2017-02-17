@@ -19,6 +19,7 @@ parserOptions:
 globals:
   angular: true
   firebase: true
+  Immutable: true
 
 settings: 
 

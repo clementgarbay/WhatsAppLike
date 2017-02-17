@@ -46,7 +46,7 @@
       }
     })
     .state('tab.chat-new', {
-      url: '/chats/new',
+      url: '/chats/new?contactId',
       views: {
         'tab-chats': {
           templateUrl: 'templates/chat-new.html',
@@ -66,12 +66,13 @@
       }
     })
 
-    .state('tab.account', {
-      url: '/account',
+    .state('tab.settings', {
+      url: '/settings',
       views: {
-        'tab-account': {
-          templateUrl: 'templates/account.html',
-          controller: 'AccountCtrl'
+        'tab-settings': {
+          templateUrl: 'templates/settings.html',
+          controller: 'SettingsCtrl',
+          controllerAs: 'vm'
         }
       }
     })
@@ -91,7 +92,7 @@
     })
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/contacts');
+    $urlRouterProvider.otherwise('/login');
 
   }
 

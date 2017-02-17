@@ -22,7 +22,7 @@
 
     <div class="list list-inset" ng-show="vm.newChat.isPrivate">
       <ion-list>
-        <ion-checkbox ng-model="_" ng-repeat="contact in vm.contacts" ng-change="vm.selectContact(contact.$id)" ng-checked="vm.isSelectedContact(contact.$id)">
+        <ion-checkbox ng-model="_" ng-repeat="contact in vm.contacts" ng-change="vm.selectContact(contact.$id)" ng-checked="vm.isSelectedContact(contact.$id)" ng-if="vm.user.id !== contact.$id">
           {{contact.firstName}} {{contact.lastName}}
         </ion-checkbox>
       </ion-list>

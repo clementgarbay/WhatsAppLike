@@ -5,7 +5,7 @@
     .module('whatsapp.controllers')
     .controller('ChatCtrl', ChatCtrl)
 
-  function ChatCtrl($stateParams, $q, $ionicPopup, $ionicScrollDelegate, Auth, Firebase, Loader) {
+  function ChatCtrl($stateParams, $q, $ionicScrollDelegate, Popup, Loader, Auth, Firebase) {
     const vm = this
     vm.sendMessage = sendMessage
 
@@ -45,10 +45,7 @@
         .then(() => {
           vm.newMessage = new Message().toJS()
         }, () => {
-          $ionicPopup.alert({
-            title: 'Oups!',
-            template: 'Une erreur est survenue. Veuillez réessayer...'
-          })
+          Popup.alert()
         })
     }
 

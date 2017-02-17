@@ -5,7 +5,7 @@
     .module('whatsapp.controllers')
     .controller('SignupCtrl', SignupCtrl)
 
-  function SignupCtrl($state, $ionicPopup, Auth) {
+  function SignupCtrl($state, Popup, Auth) {
     const vm = this
 
     const User = Immutable.Record({
@@ -26,10 +26,7 @@
           vm.newUser = new User().toJS()
           $state.go('tab.contacts')
         }, error => {
-          $ionicPopup.alert({
-            title: 'Oups!',
-            template: 'Une erreur est survenue. ' + error
-          })
+          Popup.alert('Oups!', 'Une erreur est survenue. ' + error)
         })
     }
 

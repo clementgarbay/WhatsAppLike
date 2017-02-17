@@ -5,7 +5,7 @@
     .module('whatsapp.controllers')
     .controller('ChatNewCtrl', ChatNewCtrl)
 
-  function ChatNewCtrl($ionicPopup, $state, Contacts, Firebase) {
+  function ChatNewCtrl($state, Popup, Firebase, Auth) {
     const vm = this
 
     const Chat = Immutable.Record({
@@ -23,7 +23,16 @@
     init()
 
     function init() {
-      vm.contacts = Contacts.getAll()
+      const contactIdFromUrl = $state.params.contactId
+
+      if (contactIdFromUrl) {
+        vm.newChat = new Chat({
+          isPrivate: true
+        }).toJS()
+      }
+
+      vm.user = Auth.getUser()
+      vm.contacts = Firebase.getUsersSynchronized()
     }
 
     function createNewChat() {
@@ -35,10 +44,7 @@
           vm.newChat = new Chat().toJS()
           $state.go('tab.chat', { chatId: res.key })
         }, () => {
-          $ionicPopup.alert({
-            title: 'Oups!',
-            template: 'Une erreur est survenue. Veuillez réessayer...'
-          })
+          Popup.alert()
         })
     }
 
