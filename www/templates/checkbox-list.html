@@ -1,0 +1,5 @@
+<ion-list>
+  <ion-checkbox ng-repeat="element in vm.elements" ng-model="vm.selectedElements[vm.keySelector({e: element})]" ng-change="vm.handleChange()">
+    {{vm.valueSelector({e: element})}}
+  </ion-checkbox>
+</ion-list>

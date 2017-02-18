@@ -8,46 +8,52 @@
   function ChatNewCtrl($state, Popup, Firebase, Auth) {
     const vm = this
 
-    const contactId = $state.params.contactId
+    const userId = Auth.getUser().id
+    const contactIdFromUrl = $state.params.contactId
 
     const Chat = Immutable.Record({
       name: null,
       description: null,
-      isPrivate: false
+      isPrivate: false,
+      contactIds: [] // an array of contact ids who partake in the chat (without the connected user)
     })
 
-    vm.newChat = (contactId) ? new Chat({isPrivate: true}).toJS() : new Chat().toJS()
+    vm.newChat = (contactIdFromUrl) ? new Chat({isPrivate: true, contactIds: [contactIdFromUrl]}).toJS() : new Chat().toJS()
 
     vm.createNewChat = createNewChat
-    vm.isSelectedContact = isSelectedContact
-    vm.selectContact = selectContact
+    vm.idSelector = idSelector
+    vm.usernameSelector = usernameSelector
 
     init()
 
     function init() {
-      vm.user = Auth.getUser()
-      vm.contacts = Firebase.getUsersSynchronized()
+      Firebase.getUsersSynchronized().$loaded(contacts => {
+        vm.contacts = contacts.filter(contact => contact.$id !== userId)
+      })
     }
 
     function createNewChat() {
       Firebase
         .addChat(Object.assign({}, vm.newChat, {
+          contactIds: [...vm.newChat.contactIds, userId],
           creationDate: new Date().toISOString()
         }))
-        .then(res => {
+        .then(chatId => {
           vm.newChat = new Chat().toJS()
-          $state.go('tab.chat', { chatId: res.key })
+          $state.go('tab.chat', { chatId })
         }, () => {
           Popup.alert()
         })
     }
 
-    function isSelectedContact(contactId) {
-      // TODO
+    // Helpers for checkbox-list
+
+    function idSelector(element) {
+      return element.$id
     }
 
-    function selectContact(contactId) {
-      // TODO
+    function usernameSelector(element) {
+      return `${element.firstName} ${element.lastName}`
     }
   }
 

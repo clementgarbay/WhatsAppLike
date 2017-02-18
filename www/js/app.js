@@ -6,7 +6,8 @@
       'ionic',
       'firebase',
       'whatsapp.controllers',
-      'whatsapp.services'
+      'whatsapp.services',
+      'whatsapp.directives'
     ])
 
 })()

@@ -5,7 +5,7 @@
     .module('whatsapp.services')
     .service('Firebase', Firebase)
 
-  function Firebase(FirebaseConfig, $firebaseObject, $firebaseArray) {
+  function Firebase($q, $firebaseObject, $firebaseArray, FirebaseConfig) {
 
     let dbRef = null
 
@@ -16,6 +16,8 @@
     this.addUser = addUser
 
     this.getChatsSynchronized = getChatsSynchronized
+    this.getPublicChatsSynchronized = getPublicChatsSynchronized
+    this.getPrivateChats = getPrivateChats
     this.getChatSynchronized = getChatSynchronized
     this.addChat = addChat
     this.removeChat = removeChat
@@ -48,12 +50,43 @@
       return $firebaseArray(dbRef.child('chats'))
     }
 
+    function getPublicChatsSynchronized() {
+      return $firebaseArray(dbRef
+        .child('chats')
+        .orderByChild('isPrivate')
+        .equalTo(false)
+      )
+    }
+
+    // TODO: transform this function in a synchronized version (to use three-way binding)
+    function getPrivateChats(userId) {
+      return $firebaseArray(dbRef
+        .child('members')
+        .orderByChild(userId)
+        .equalTo(true)
+      ).$loaded(chatsForMember => {
+        return chatsForMember.map(chatForMember => {
+          return getChatSynchronized(chatForMember.$id)
+        })
+      })
+    }
+
     function getChatSynchronized(chatId) {
       return $firebaseObject(dbRef.child('chats').child(chatId))
     }
 
     function addChat(chat) {
-      return getChatsSynchronized().$add(chat)
+      const keepChatProperties = ({name, description, isPrivate, creationDate}) => ({name, description, isPrivate, creationDate})
+
+      return getChatsSynchronized().$add(keepChatProperties(chat)).then(res => {
+        if (chat.isPrivate) {
+          const promises = chat.contactIds.map(contactId => {
+            return dbRef.child('members').child(res.key).child(contactId).set(true)
+          })
+          return $q.all(promises).then(() => res.key)
+        }
+        return res.key
+      })
     }
 
     function removeChat(chatId) {
