@@ -98,7 +98,12 @@
     }
 
     function addMessage(chatId, message) {
-      return getMessagesSynchronized(chatId).$add(message)
+      return getMessagesSynchronized(chatId).$add(message).then(() => {
+        return dbRef.child('chats').child(chatId).update({
+          lastMessage: message.text,
+          lastMessageDate: message.date
+        })
+      })
     }
   }
 

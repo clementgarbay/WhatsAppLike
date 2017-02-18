@@ -6,3 +6,6 @@ platforms/
 plugins/
 
 app.conf.js
+
+www/lib/
+.vscode

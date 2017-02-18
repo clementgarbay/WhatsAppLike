@@ -15,7 +15,8 @@
       name: null,
       description: null,
       isPrivate: false,
-      contactIds: [] // an array of contact ids who partake in the chat (without the connected user)
+      contactIds: [], // an array of contact ids who partake in the chat (without the connected user)
+      creationDate: null
     })
 
     vm.newChat = (contactIdFromUrl) ? new Chat({isPrivate: true, contactIds: [contactIdFromUrl]}).toJS() : new Chat().toJS()
