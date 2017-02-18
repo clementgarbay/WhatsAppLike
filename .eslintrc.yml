@@ -20,6 +20,7 @@ globals:
   angular: true
   firebase: true
   Immutable: true
+  moment: true
 
 settings: 
 

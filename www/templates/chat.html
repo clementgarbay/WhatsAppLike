@@ -13,7 +13,7 @@
           <div class="message" ng-bind-html="message.text"></div>
           <div class="message-detail">
             <span class="bold">{{message.sender}}</span>,
-            <span>{{ message.date | date:'dd/MM/yyyy à HH:mm' }}</span>
+            <span>{{ vm.formatDate(message.date) }}</span>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
           <div class="message" ng-bind-html="message.text"></div>
           <div class="message-detail">
             <span class="bold">Vous</span>,
-            <span>{{ message.date | date:'dd/MM/yyyy à HH:mm' }}</span>
+            <span>{{ vm.formatDate(message.date) }}</span>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@
   function ChatCtrl($stateParams, $q, $ionicScrollDelegate, Popup, Loader, Auth, Firebase) {
     const vm = this
     vm.sendMessage = sendMessage
+    vm.formatDate = formatDate
 
     const chatId = $stateParams.chatId
 
@@ -51,6 +52,10 @@
 
     function scrollBottom() {
       $ionicScrollDelegate.scrollBottom()
+    }
+
+    function formatDate(date) {
+      return moment(date).fromNow()
     }
   }
 
