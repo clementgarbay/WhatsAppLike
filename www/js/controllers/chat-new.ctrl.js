@@ -8,13 +8,15 @@
   function ChatNewCtrl($state, Popup, Firebase, Auth) {
     const vm = this
 
+    const contactId = $state.params.contactId
+
     const Chat = Immutable.Record({
       name: null,
       description: null,
       isPrivate: false
     })
 
-    vm.newChat = new Chat().toJS()
+    vm.newChat = (contactId) ? new Chat({isPrivate: true}).toJS() : new Chat().toJS()
 
     vm.createNewChat = createNewChat
     vm.isSelectedContact = isSelectedContact
@@ -23,14 +25,6 @@
     init()
 
     function init() {
-      const contactIdFromUrl = $state.params.contactId
-
-      if (contactIdFromUrl) {
-        vm.newChat = new Chat({
-          isPrivate: true
-        }).toJS()
-      }
-
       vm.user = Auth.getUser()
       vm.contacts = Firebase.getUsersSynchronized()
     }
