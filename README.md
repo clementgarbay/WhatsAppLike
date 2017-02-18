@@ -11,6 +11,8 @@ npm i -g cordova ionic
 
 In the project directory:
 ```
+bower install
+
 cp ./www/js/app.conf-default.js ./www/js/app.conf.js
 ```
 
