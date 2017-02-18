@@ -1,12 +1,16 @@
 <ion-view id="chat-detail" view-title="{{vm.chat.name}}">
 
+  <ion-nav-title>
+    {{vm.chat.name}}
+  </ion-nav-title>
+
   <ion-content has-bouncing="true" class="has-header has-footer">
 
     <div class="no-message text-center" ng-show="vm.messages.$resolved && !vm.messages.length">
       Aucun message
     </div>
 
-    <div ng-repeat="message in vm.messages | orderBy:'date'" class="message-wrapper">
+    <div ng-repeat="message in vm.messages track by message.$id | orderBy:'date'" class="message-wrapper">
 
       <div ng-if="vm.user.id !== message.senderId">
         <div class="chat-bubble left">
