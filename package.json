@@ -1,7 +1,7 @@
 {
   "name": "whatsapplike",
   "version": "1.1.1",
-  "description": "WhatsAppLike: An Ionic project",
+  "description": "A simple chat messaging.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
