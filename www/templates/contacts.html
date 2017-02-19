@@ -7,7 +7,7 @@
       </label>
 
       <ion-item ng-repeat="contact in vm.contacts | filter:vm.search" type="item-text-wrap" ng-if="vm.user.id !== contact.$id">
-        <a href="#/tab/chats/new?contactId={{contact.$id}}">
+        <a ui-sref="tab.chat-new({ contactId: contact.$id })">
           <h2>{{contact.firstName}} {{contact.lastName}}</h2>
         </a>
       </ion-item>

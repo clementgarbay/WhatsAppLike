@@ -1,7 +1,7 @@
 <ion-view view-title="Conversations">
 
   <ion-nav-buttons side="right">
-    <a class="button button-clear button-positive ion-plus-round" href="#/tab/chats/new">
+    <a class="button button-clear button-positive ion-plus-round" ui-sref="tab.chat-new">
       Nouvelle conversation
     </a>
   </ion-nav-buttons>
@@ -12,7 +12,7 @@
         Conversations privées
       </div>
 
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in vm.privateChats track by chat.$id | orderBy:['lastMessageDate', 'creationDate']" type="item-text-wrap" href="#/tab/chats/{{chat.$id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in vm.privateChats track by chat.$id | orderBy:['lastMessageDate', 'creationDate']" type="item-text-wrap" ui-sref="tab.chat({ chatId: chat.$id })">
         <h2>{{chat.name}} <small class="small">({{chat.description}})</small></h2>
         <p>{{chat.lastMessage || 'Aucun message'}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
@@ -26,7 +26,7 @@
         Conversations publiques
       </div>
 
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in vm.publicChats track by chat.$id | orderBy:['lastMessageDate', 'creationDate']" type="item-text-wrap" href="#/tab/chats/{{chat.$id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in vm.publicChats track by chat.$id | orderBy:['lastMessageDate', 'creationDate']" type="item-text-wrap" ui-sref="tab.chat({ chatId: chat.$id })">
         <h2>{{chat.name}} <small class="small">({{chat.description}})</small></h2>
         <p>{{chat.lastMessage || 'Aucun message'}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
