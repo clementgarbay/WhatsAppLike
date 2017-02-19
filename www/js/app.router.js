@@ -65,6 +65,7 @@
 
     .state('tab.settings', {
       url: '/settings',
+      cache: false,
       views: {
         'tab-settings': {
           templateUrl: 'templates/settings.html',

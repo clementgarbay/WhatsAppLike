@@ -5,7 +5,7 @@
     .module('whatsapp.controllers')
     .controller('SettingsCtrl', SettingsCtrl)
 
-  function SettingsCtrl($state, Auth) {
+  function SettingsCtrl($state, $ionicHistory, Auth) {
     const vm = this
     vm.logout = logout
 
@@ -18,7 +18,11 @@
     function logout() {
       Auth
         .logout()
-        .then(() => $state.go('login'))
+        .then(() => {
+          $ionicHistory.clearCache()
+          $ionicHistory.clearHistory()
+          $state.go('login')
+        })
     }
   }
 

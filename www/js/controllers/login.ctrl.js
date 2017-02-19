@@ -5,7 +5,7 @@
     .module('whatsapp.controllers')
     .controller('LoginCtrl', LoginCtrl)
 
-  function LoginCtrl($state, Auth) {
+  function LoginCtrl($state, Auth, Popup) {
     const vm = this
     vm.login = login
 
@@ -24,6 +24,8 @@
           .then(() => {
             reset()
             $state.go('tab.contacts')
+          }, () => {
+            Popup.alert('Oups!', 'Couple email / mot de passe incorrect')
           })
       }
     }
